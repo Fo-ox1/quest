@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>для Жаннелечки 💌</title>
+    
+    <!-- Кастомные шрифты - романтичные и элегантные -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fff5f0 0%, #ffe3e3 100%);
+            font-family: 'Quicksand', 'Inter', -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Базовый класс для текста - все смайлики будут прямыми */
+        .text-content, p, h1, h2, .btn, .test-btn, .progress-badge, .question-text, .romantic-note {
+            font-family: inherit;
+        }
+
+        /* ТОЛЬКО для романтичного текста (без смайликов) */
+        .serif-text, .question-text, .final-message, .romantic-quote {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+        }
+
+        /* Отключаем курсив для всех смайликов */
+        .emoji, .heart-decoration, .floating-heart, .confetti-piece,
+        span:contains('❤️'), span:contains('🧡'), span:contains('💗'), 
+        span:contains('💖'), span:contains('💘'), span:contains('💝'),
+        span:contains('🌸'), span:contains('🌷'), span:contains('✨'),
+        span:contains('🎀'), span:contains('💌'), span:contains('🥹'),
+        span:contains('💋'), span:contains('🥺') {
+            font-style: normal !important;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important;
+        }
+
+        /* Фоновый узор */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="35" r="10" fill="%23ffb3b3" opacity="0.08"/><circle cx="95" cy="80" r="16" fill="%23ff9999" opacity="0.08"/><circle cx="50" cy="100" r="8" fill="%23ff8080" opacity="0.08"/><circle cx="85" cy="20" r="12" fill="%23ffb3b3" opacity="0.08"/><circle cx="15" cy="105" r="9" fill="%23ff9999" opacity="0.08"/></svg>');
+            background-size: 250px 250px;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Летающие сердечки на фоне */
+        .floating-heart {
+            position: fixed;
+            font-size: 28px;
+            opacity: 0.07;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatAround 30s infinite linear;
+            color: #ff7a7a;
+            text-shadow: 0 0 15px rgba(255, 80, 80, 0.2);
+            font-style: normal !important;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translateY(0vh) translateX(0vw) rotate(0deg); }
+            33% { transform: translateY(-25vh) translateX(15vw) rotate(120deg); }
+            66% { transform: translateY(-45vh) translateX(-15vw) rotate(240deg); }
+            100% { transform: translateY(0vh) translateX(0vw) rotate(360deg); }
+        }
+
+        /* ОСНОВНОЙ СТЕКЛЯННЫЙ ЭФФЕКТ - УВЕЛИЧЕНО ДЛЯ ПК */
+        .card {
+            max-width: 950px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 20;
+            transition: all 0.6s ease;
+            
+            /* GLASS EFFECT */
+            background: rgba(255, 245, 245, 0.4);
+            backdrop-filter: blur(18px) saturate(200%);
+            -webkit-backdrop-filter: blur(18px) saturate(200%);
+            border-radius: 72px;
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.03),
+                0 15px 30px rgba(255, 140, 140, 0.1),
+                inset 0 0 0 1.5px rgba(255, 255, 255, 0.8);
+            padding: 60px 55px;
+        }
+
+        /* АДАПТАЦИЯ ДЛЯ НОУТБУКОВ/ПК - ВСЁ КРУПНЕЕ */
+        @media (min-width: 1200px) {
+            .card {
+                max-width: 1050px;
+                padding: 70px 65px;
+            }
+        }
+
+        /* УНИКАЛЬНЫЕ СТИЛИ ДЛЯ КАЖДОГО ЭКРАНА */
+        
+        /* 1. Открыточка */
+        .letter-screen .card {
+            background: rgba(255, 235, 235, 0.4);
+            backdrop-filter: blur(22px) saturate(200%);
+            border: 1.5px solid rgba(255, 200, 200, 0.7);
+            box-shadow: 0 40px 70px rgba(255, 140, 140, 0.15), inset 0 0 50px rgba(255, 220, 220, 0.3);
+        }
+
+        .letter-screen .envelope-icon {
+            font-size: 160px;
+            filter: drop-shadow(0 20px 25px rgba(255, 80, 80, 0.25));
+            animation: float 4s ease-in-out infinite;
+            font-style: normal !important;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* 2. Валентинка - элегантный шрифт ТОЛЬКО для текста */
+        .valentine-screen .card {
+            background: rgba(255, 240, 235, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: 80px 40px 80px 40px;
+        }
+
+        .valentine-screen .question-text {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 56px;
+            font-weight: 500;
+            color: #5c3a3a;
+            letter-spacing: 1px;
+            font-style: normal;
+        }
+        
+        .valentine-screen p {
+            font-family: 'Quicksand', 'Inter', sans-serif;
+            font-size: 24px;
+            color: #5c3a3a;
+        }
+
+        /* 3. Предтест */
+        .pre-test-screen .card {
+            background: rgba(255, 235, 225, 0.4);
+            backdrop-filter: blur(24px);
+            border: 2px dashed rgba(255, 150, 150, 0.6);
+            border-radius: 100px 40px 100px 40px;
+        }
+
+        .pre-test-screen p {
+            font-family: 'Quicksand', 'Inter', sans-serif;
+            font-size: 30px;
+            line-height: 1.6;
+        }
+        
+        .pre-test-screen p:first-of-type {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 500;
+        }
+
+        /* 4. ТЕСТ */
+        .test-screen .card {
+            background: rgba(255, 250, 250, 0.35);
+            backdrop-filter: blur(24px);
+            border: 1.5px solid rgba(255, 220, 220, 0.8);
+            box-shadow: 0 30px 60px rgba(255, 120, 120, 0.12), inset 0 0 60px rgba(255, 255, 255, 0.6);
+            border-radius: 50px 70px 50px 70px;
+        }
+
+        .test-screen .test-question {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            border-radius: 40px;
+            padding: 45px 40px;
+            box-shadow: 0 12px 0 rgba(255, 200, 200, 0.25);
+        }
+
+        .test-screen .test-question p {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 1.4;
+            color: #573c3c;
+            font-style: normal;
+        }
+
+        .test-screen .test-btn {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255, 200, 200, 0.7);
+            border-radius: 28px;
+            padding: 20px 32px;
+            margin-bottom: 12px;
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            transition: all 0.25s;
+            border-bottom: 4px solid rgba(255, 180, 180, 0.5);
+            color: #4d3a3a;
+            text-align: left;
+            font-style: normal;
+        }
+
+        .test-screen .test-btn:hover {
+            background: rgba(255, 220, 220, 0.8);
+            border-color: rgba(255, 100, 100, 0.8);
+            transform: translateY(-3px);
+            border-bottom: 6px solid rgba(255, 100, 100, 0.6);
+        }
+
+        .test-screen .progress-badge {
+            background: rgba(255, 220, 220, 0.7);
+            backdrop-filter: blur(4px);
+            color: #7a4f4f;
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            font-family: 'Quicksand', sans-serif;
+            font-style: normal;
+        }
+
+        /* 5. Финальный экран */
+        .final-screen .card {
+            background: rgba(255, 235, 235, 0.4);
+            backdrop-filter: blur(22px);
+            border: 2px solid rgba(255, 200, 200, 0.7);
+            background: linear-gradient(145deg, rgba(255, 240, 240, 0.4), rgba(255, 225, 225, 0.4));
+            border-radius: 100px 40px 100px 40px;
+        }
+
+        .final-screen p {
+            font-family: 'Quicksand', 'Inter', sans-serif;
+            font-size: 34px;
+            line-height: 1.5;
+        }
+        
+        .final-screen p:first-of-type {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 44px;
+            font-weight: 500;
+        }
+        
+        .final-screen .big-yes {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 600;
+            padding: 28px 90px;
+            font-style: normal;
+        }
+
+        /* 6. Финальные слова */
+        .final-love-screen .card {
+            background: rgba(255, 230, 230, 0.4);
+            backdrop-filter: blur(26px);
+            border: 2px solid rgba(255, 160, 160, 0.7);
+            background: radial-gradient(circle at 10% 30%, rgba(255, 240, 240, 0.4), rgba(255, 220, 220, 0.4));
+            border-radius: 60px 60px 60px 60px;
+        }
+
+        .final-love-screen p {
+            font-family: 'Quicksand', 'Inter', sans-serif;
+            font-size: 36px;
+            line-height: 1.5;
+        }
+        
+        .final-love-screen p:first-of-type {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 500;
+        }
+
+        /* Общие стили */
+        .fade-screen {
+            opacity: 0;
+            animation: softAppear 1.2s cubic-bezier(0.12, 0.71, 0.33, 1) forwards;
+            position: relative;
+            z-index: 25;
+        }
+
+        @keyframes softAppear {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .test-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 35px;
+        }
+
+        .disabled-option {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.5) translateY(-35px);
+            margin-top: -38px;
+            margin-bottom: -38px;
+            transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* КОНФЕТТИ */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            font-size: 24px;
+            animation: confettiFall 4s ease-in forwards;
+            color: #ff8a8a;
+            text-shadow: 0 0 8px rgba(255, 80, 80, 0.5);
+            font-style: normal !important;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0.3;
+            }
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255, 180, 180, 0.7);
+            border-radius: 100px;
+            padding: 18px 48px;
+            font-size: 22px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            color: #5c3a3a;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 16px rgba(255, 140, 140, 0.15);
+            font-style: normal;
+        }
+
+        .btn:hover {
+            background: rgba(255, 210, 210, 0.8);
+            border-color: #ff8f8f;
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(255, 120, 120, 0.25);
+        }
+
+        .btn-no {
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 100;
+        }
+
+        .big-yes {
+            background: rgba(255, 180, 180, 0.75);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 100px;
+            padding: 28px 90px;
+            font-size: 52px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: #3e2e2e;
+            transition: all 0.3s;
+            box-shadow: 0 20px 40px rgba(255, 80, 80, 0.25);
+            letter-spacing: 2px;
+            font-style: normal;
+        }
+
+        .big-yes:hover {
+            background: rgba(255, 150, 150, 0.8);
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px rgba(255, 80, 80, 0.35);
+        }
+
+        h1, h2 {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        p {
+            font-family: 'Quicksand', 'Inter', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+            font-style: normal;
+        }
+        
+        /* Специально для текста с датой */
+        .date-text, .regular-text {
+            font-family: 'Quicksand', 'Inter', sans-serif !important;
+            font-size: 24px;
+            font-weight: 400;
+            color: #5c3a3a;
+            font-style: normal;
+        }
+        
+        /* Для всех смайликов и декоративных элементов */
+        .emoji-only, [class*="heart"], [class*="emoji"] {
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important;
+            font-style: normal !important;
+        }
+        
+        /* Исправление для вступительной плашки */
+        .valentine-screen p:not(.question-text) {
+            font-family: 'Quicksand', 'Inter', sans-serif !important;
+            font-size: 24px;
+            font-weight: 400;
+            color: #5c3a3a;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <!-- Летающие сердечки -->
+    <div id="floating-hearts-container"></div>
+    
+    <!-- Контейнер для конфетти -->
+    <div id="confetti-container" class="confetti-container"></div>
+
+    <!-- СТАРТ: открыточка -->
+    <div id="start-screen" class="fade-screen letter-screen" style="width: 100%; display: flex; justify-content: center;">
+        <div class="card">
+            <div class="letter-preview" id="open-letter">
+                <div style="font-size: 48px; margin-bottom: 20px; opacity: 0.9; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">✨ 💌 ✨</div>
+                <span class="envelope-icon">💌</span>
+                <h1 style="font-size: 52px; font-weight: 450; margin-top: 25px; color: #613434; font-style: normal;">Открыточка</h1>
+                <p style="color: #b27a7a; font-size: 22px; margin-top: 20px; letter-spacing: 6px; font-weight: 300; font-family: 'Quicksand', sans-serif; font-style: normal;">нажми на меня</p>
+                <div style="margin-top: 40px; font-size: 36px; opacity: 0.5; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">❤️ 🤍 ❤️</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
+    <div id="app" class="hidden" style="width: 100%; display: flex; justify-content: center;">
+        <div id="dynamic-content" class="card"></div>
+    </div>
+
+    <script>
+        // Создаём летающие сердечки
+        function createFloatingHearts() {
+            const container = document.getElementById('floating-hearts-container');
+            const heartSymbols = ['❤️', '🧡', '❤️', '🧡', '❤️', '🧡'];
+            const count = 35;
+            
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.fontSize = (Math.random() * 40 + 25) + 'px';
+                heart.style.opacity = (Math.random() * 0.06 + 0.04).toString();
+                heart.style.animationDelay = (Math.random() * 25) + 's';
+                heart.style.animationDuration = (Math.random() * 25 + 25) + 's';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                container.appendChild(heart);
+            }
+        }
+
+        // НОВОЕ КОНФЕТТИ - красивые падающие элементы
+        function startConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            
+            const elements = ['❤️', '🧡', '💗', '💖', '💘', '💝', '🌸', '🌷', '✨', '🎀', '💌'];
+            const count = 120;
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10vh';
+                    confetti.style.fontSize = (Math.random() * 30 + 18) + 'px';
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    confetti.style.opacity = (Math.random() * 0.5 + 0.4).toString();
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    confetti.textContent = elements[Math.floor(Math.random() * elements.length)];
+                    container.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 6000);
+                }, i * 30);
+            }
+            
+            // Вторая волна
+            setTimeout(() => {
+                for (let i = 0; i < 60; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti-piece';
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.top = '-10vh';
+                        confetti.style.fontSize = (Math.random() * 35 + 20) + 'px';
+                        confetti.style.animationDelay = '0s';
+                        confetti.style.animationDuration = (Math.random() * 3 + 3.5) + 's';
+                        confetti.style.opacity = (Math.random() * 0.6 + 0.3).toString();
+                        confetti.textContent = elements[Math.floor(Math.random() * elements.length)];
+                        container.appendChild(confetti);
+                        
+                        setTimeout(() => {
+                            confetti.remove();
+                        }, 6000);
+                    }, i * 50);
+                }
+            }, 800);
+        }
+
+        const quizData = [
+            {
+                question: "Ты гордишься тем, что мы вместе?",
+                options: ["Да", "Нет", "С ума сошёл?", "Вообще нет."],
+                correct: 0
+            },
+            {
+                question: "Кто самая красивая и лучшая пара на свете?",
+                options: ["Не знаю", "Безусловно мы!", "Что это?", "Окей, следующий вопрос..."],
+                correct: 1
+            },
+            {
+                question: "Вопрос обо мне: Выбери одну игру, в которую я никогда не захочу поиграть",
+                options: ["CS2", "Spider Man 2", "Resident Evil", "God Of War"],
+                correct: 2
+            },
+            {
+                question: "Где мы с тобой впервые увиделись?",
+                options: ["В баре", "У меня дома", "У Андрея дома", "В школе"],
+                correct: 0
+            },
+            {
+                question: "Окей, я считаю: 3, 4, 5...",
+                options: ["6", "7", "8", "9"],
+                correct: 2
+            },
+            {
+                question: "Этот вечер ты хочешь провести..",
+                options: ["Со мной", "С другим парнем", "С девушкой Heronwater'а", "Смотря классный фильм"],
+                correct: 0
+            },
+            {
+                question: "Выбери исполнителя, которого я бы предпочёл больше, чем остальных из данного списка",
+                options: ["JONY", "The Limba", "Nkeeei", "9mice"],
+                correct: 0
+            },
+            {
+                question: "Боже, какая ты умничка 😍❤️\n\nКак назывался мой самый первый YouTube канал?",
+                options: ["Семейные влоги и игры", "Gamer Fox", "Эльнар", "Gamer boy"],
+                correct: 3
+            },
+            {
+                question: "На финалочку: Какой цвет я бы предпочел из данного списка?",
+                options: ["Зелёный", "Синий", "Фиолетовый", "Белый"],
+                correct: 0
+            },
+            {
+                question: "Последний вопрос: Ты меня любишь?",
+                options: ["Я тебя больше всего на свете люблю <3", "Ненавижу!!!", "Совсем ахренел 😡", "Нет."],
+                correct: 0
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let noButtonTextChanged = false;
+
+        const startScreen = document.getElementById('start-screen');
+        const app = document.getElementById('app');
+        const dynamicContent = document.getElementById('dynamic-content');
+
+        createFloatingHearts();
+
+        // Открыточка
+        document.getElementById('open-letter').addEventListener('click', function(e) {
+            startScreen.style.opacity = '0';
+            startScreen.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                startScreen.classList.add('hidden');
+                app.classList.remove('hidden');
+                showValentineQuestion();
+            }, 700);
+        });
+
+        // ЭКРАН 1: Вопрос про валентинку - ИСПРАВЛЕНЫ ШРИФТЫ
+        function showValentineQuestion() {
+            dynamicContent.className = 'card valentine-screen';
+            dynamicContent.innerHTML = `
+                <div class="fade-screen">
+                    <div style="font-size: 48px; margin-bottom: 20px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">💗 💖 💗</div>
+                    <p style="font-size: 28px; color: #b27a7a; margin-bottom: 15px; font-family: 'Playfair Display', 'Cormorant Garamond', serif; font-style: normal; font-weight: 500;">Дорогая Жаннелечка,</p>
+                    <p style="font-size: 24px; margin-bottom: 25px; font-family: 'Quicksand', 'Inter', sans-serif; font-style: normal; font-weight: 400; color: #5c3a3a;">сегодня 13 февраля и у меня есть очень важный вопрос:</p>
+                    <div class="question-text" style="font-size: 58px; margin: 35px 0 35px; font-family: 'Playfair Display', 'Cormorant Garamond', serif; font-style: normal; font-weight: 500;">
+                        Ты станешь моей валентинкой?
+                    </div>
+                    <div class="options">
+                        <button class="btn" id="yes-btn">Конечно! ❤️</button>
+                        <button class="btn btn-no" id="no-btn">Нет, не хочу</button>
+                    </div>
+                    <div style="margin-top: 50px; font-size: 30px; color: #c99; display: flex; justify-content: center; gap: 25px; opacity: 0.8; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">
+                        <span>🌸</span> <span>✨</span> <span>💕</span> <span>🌷</span> <span>🎀</span>
+                    </div>
+                </div>
+            `;
+
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.getElementById('yes-btn');
+
+            if (noBtn) {
+                noBtn.addEventListener('mouseenter', function(e) {
+                    if (noButtonTextChanged) return;
+                    
+                    const container = dynamicContent;
+                    const containerRect = container.getBoundingClientRect();
+                    const btnRect = this.getBoundingClientRect();
+                    
+                    const maxX = containerRect.width - btnRect.width - 40;
+                    const maxY = containerRect.height - btnRect.height - 40;
+                    
+                    let x = Math.random() * Math.max(maxX, 80);
+                    let y = Math.random() * Math.max(maxY, 80);
+                    
+                    this.style.position = 'absolute';
+                    this.style.left = `${Math.min(Math.max(x, 15), maxX)}px`;
+                    this.style.top = `${Math.min(Math.max(y, 15), maxY)}px`;
+                    this.style.zIndex = '1000';
+                });
+
+                noBtn.addEventListener('click', function(e) {
+                    if (!noButtonTextChanged) {
+                        this.textContent = 'Да, с удовольствием ❤️';
+                        this.style.background = 'rgba(255, 210, 210, 0.9)';
+                        noButtonTextChanged = true;
+                    }
+                });
+            }
+
+            yesBtn.addEventListener('click', function() {
+                dynamicContent.className = 'card pre-test-screen';
+                dynamicContent.innerHTML = `
+                    <div class="fade-screen">
+                        <div style="font-size: 64px; margin-bottom: 30px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">🥹 💗 🥹</div>
+                        <p style="font-size: 48px; margin-bottom: 30px; color: #5c3a3a; font-family: 'Playfair Display', serif; font-style: normal; font-weight: 500;">О ДА! Я так рад!</p>
+                        <p style="font-size: 30px; line-height: 1.7; color: #5a4747; background: rgba(255,255,255,0.35); backdrop-filter: blur(4px); padding: 30px; border-radius: 60px; font-family: 'Quicksand', 'Inter', sans-serif; font-style: normal; font-weight: 400;">
+                            Я очень этого хотел и рад, что ты согласна 🥹❤️<br><br>
+                            Но не всё так просто... Для начала нужно пройти тест,<br>чтобы закрепить твой выбор!
+                        </p>
+                        <button class="btn" id="start-test" style="margin-top: 60px; padding: 22px 70px; font-size: 30px; background: rgba(255, 200, 200, 0.75); font-family: 'Quicksand', sans-serif; font-style: normal;">
+                            Начать тест ✨
+                        </button>
+                    </div>
+                `;
+                document.getElementById('start-test').addEventListener('click', function() {
+                    currentQuestionIndex = 0;
+                    renderQuestion();
+                });
+            });
+        }
+
+        // ТЕСТ
+        function renderQuestion() {
+            if (currentQuestionIndex >= quizData.length) {
+                showFinalProposal();
+                return;
+            }
+            
+            const q = quizData[currentQuestionIndex];
+            const progress = `${currentQuestionIndex + 1}/${quizData.length}`;
+            
+            dynamicContent.className = 'card test-screen';
+            
+            let html = `
+                <div class="fade-screen">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                        <span class="progress-badge">💭 Вопрос ${progress}</span>
+                        <span style="font-size: 48px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">💌</span>
+                    </div>
+                    <div class="test-question">
+                        <p style="margin-bottom: 40px; font-family: 'Playfair Display', 'Cormorant Garamond', serif; font-style: normal; font-weight: 500;">
+                            ${q.question}
+                        </p>
+                        <div class="test-options" id="test-options-container" data-question-index="${currentQuestionIndex}">
+            `;
+
+            q.options.forEach((opt, idx) => {
+                const isCorrect = idx === q.correct;
+                html += `<button class="test-btn" data-opt-index="${idx}" data-correct="${isCorrect}">${opt}</button>`;
+            });
+
+            html += `</div></div></div>`;
+            
+            dynamicContent.innerHTML = html;
+
+            const container = document.getElementById('test-options-container');
+            if (!container) return;
+
+            const buttons = Array.from(container.querySelectorAll('.test-btn'));
+            
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function clickHandler(e) {
+                    const isCorrect = this.dataset.correct === 'true';
+                    
+                    if (isCorrect) {
+                        currentQuestionIndex++;
+                        renderQuestion();
+                    } else {
+                        const allBtns = Array.from(container.querySelectorAll('.test-btn:not(.disabled-option)'));
+                        const wrongBtns = allBtns.filter(b => b.dataset.correct === 'false');
+                        
+                        if (wrongBtns.length > 0) {
+                            const btnToDisable = wrongBtns[0];
+                            btnToDisable.classList.add('disabled-option');
+                        }
+                    }
+                });
+            });
+        }
+
+        // ФИНАЛ
+        function showFinalProposal() {
+            dynamicContent.className = 'card final-screen';
+            dynamicContent.innerHTML = `
+                <div class="fade-screen">
+                    <div style="font-size: 70px; margin-bottom: 30px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">🏆 🥹 ❤️</div>
+                    <p style="font-size: 44px; margin-bottom: 35px; color: #5a3e3e; line-height: 1.5; font-family: 'Playfair Display', serif; font-style: normal; font-weight: 500;">
+                        Ты справилась со всем, моя любимая,<br>с самой первой попытки! 🥹❤️
+                    </p>
+                    <p style="font-size: 34px; margin: 60px 0 40px; line-height: 1.6; font-family: 'Quicksand', 'Inter', sans-serif; font-style: normal; font-weight: 400;">
+                        Ты моя судьба, я очень горжусь тобой и спрошу кое-что ещё раз:<br>
+                        <span style="font-size: 56px; display: block; margin-top: 45px; font-weight: 600; font-family: 'Playfair Display', serif; font-style: normal;">
+                            Ты станешь моей валентинкой?
+                        </span>
+                    </p>
+                    <button id="final-yes" class="big-yes">
+                        ДА! ❤️
+                    </button>
+                    <div style="margin-top: 65px; font-size: 30px; color: #9e6b6b; background: rgba(255,255,255,0.35); backdrop-filter: blur(4px); padding: 25px 40px; border-radius: 70px; display: inline-block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;">
+                        Целую и обнимаю,<br>твой любимый Эльнарчик 🥺💋
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('final-yes').addEventListener('click', function() {
+                startConfetti();
+                dynamicContent.className = 'card final-love-screen';
+                dynamicContent.innerHTML = `
+                    <div class="fade-screen">
+                        <div style="font-size: 70px; margin-bottom: 35px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">💖 💗 💖</div>
+                        <p style="font-size: 48px; line-height: 1.5; margin-bottom: 45px; color: #4d3535; font-family: 'Playfair Display', serif; font-style: normal; font-weight: 500;">
+                            Я так счастлив быть рядом с тобой,<br>ты самая лучшая девочка на свете ☺️❤️
+                        </p>
+                        <p style="font-size: 38px; margin: 60px 0; color: #956464; background: rgba(255,255,255,0.35); backdrop-filter: blur(4px); padding: 30px; border-radius: 80px; font-family: 'Quicksand', 'Inter', sans-serif; font-style: normal; font-weight: 400;">
+                            Увидимся в личных сообщениях, моя радость 🥹❤️
+                        </p>
+                        <p style="font-size: 36px; margin-top: 80px; color: #7e5a5a; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;">
+                            Целую и обнимаю,<br>твой любимый Эльнарчик 🥺💋
+                        </p>
+                        <div style="margin-top: 70px; font-size: 70px; opacity: 0.7; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important; font-style: normal;">
+                            ❤️ 🤍 ❤️ 🤍 ❤️
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.addEventListener('resize', () => {});
+    </script>
+</body>
+</html>
